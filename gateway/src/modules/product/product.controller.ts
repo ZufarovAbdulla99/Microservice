@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { ProductService } from "./product.service";
-import { CreateProductDto } from "./dto";
+import { CreateProductDto, UpdateProductDto } from "./dto";
 
 @ApiTags('Product')
 @Controller('product')
@@ -24,7 +24,8 @@ export class ProductController {
     }
 
     @Patch('/update')
-    updateProduct(@Param('id', ParseIntPipe) id: number, @Body() payload: CreateProductDto){
+    updateProduct(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateProductDto){
+        console.log(payload)
         return this.service.updateProduct(id, payload)
     }
 

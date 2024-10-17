@@ -14,6 +14,7 @@ import { Product } from '@modules';
       password: '1234',
       database: 'product',
       entities: [Product],
+      // dropSchema: true,
       synchronize: true,
       autoLoadEntities: true
     }),

@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from "@nestjs/common";
 import { CategoryService } from "./category.service";
 import { ApiTags } from "@nestjs/swagger";
-import { CreateCategoryDto } from "./dto";
+import { CreateCategoryDto, UpdateCategoryDto } from "./dto";
 
 @ApiTags('Category')
 @Controller('category')
@@ -11,6 +11,16 @@ export class CategoryController {
     @Get()
     getCategories(){
         return this.service.getCategoryList()
+    }
+
+    @Get('/:id')
+    getSingleCategory(@Param('id', ParseIntPipe) id: number){
+        return this.service.getSingleCategory(id)
+    }
+
+    @Patch('/:id')
+    updateCategory(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateCategoryDto) {
+        return this.service.updateCategory({...payload, id})
     }
 
     @Post('/add')

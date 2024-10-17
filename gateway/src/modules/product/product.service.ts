@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { ProductClient } from "./product.client";
-import { CreateProductDto } from "./dto";
+import { CreateProductDto, UpdateProductDto } from "./dto";
 
 @Injectable()
 export class ProductService {
@@ -18,7 +18,7 @@ export class ProductService {
         return this.productClient.getProduct(id)
     }
 
-    updateProduct(id: number, payload: CreateProductDto) {
+    updateProduct(id: number, payload: UpdateProductDto) {
         return this.productClient.updateProduct(id, payload)
     }
 

@@ -3,6 +3,7 @@ import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+import { DeleteCategoryDto, GetSingleCategoryDto } from './dto';
 
 @Controller()
 export class CategoryController {
@@ -18,16 +19,18 @@ export class CategoryController {
     return this.categoryService.findAll();
   }
 
-  findOne(@Param('id') id: string) {
-    return this.categoryService.findOne(+id);
+  @MessagePattern("getSingleCategory")
+  findOne(@Payload() payload: GetSingleCategoryDto) {
+    return this.categoryService.findOne(payload.id);
   }
 
-  update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-    return this.categoryService.update(+id, updateCategoryDto);
+  @MessagePattern('updateCategory')
+  update(@Payload() updateCategoryDto: UpdateCategoryDto) {
+    return this.categoryService.update(updateCategoryDto.id, updateCategoryDto);
   }
 
   @MessagePattern("deleteCategory")
-  remove(@Payload() payload: {id: number}) {
+  remove(@Payload() payload: DeleteCategoryDto) {
     return this.categoryService.remove(payload.id);
   }
 }

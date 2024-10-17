@@ -9,27 +9,28 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @MessagePattern("createProduct")
-  create(@Payload() createProductDto: CreateProductDto) {
-    return this.productService.create(createProductDto);
+  async create(@Payload() createProductDto: CreateProductDto) {
+    return await this.productService.create(createProductDto);
   }
 
   @MessagePattern("getAllProducts")
-  findAll() {
-    return this.productService.findAll();
+  async findAll() {
+    return await this.productService.findAll();
   }
 
   @MessagePattern("getProduct")
-  findOne(@Param('id') id: number) {
-    return this.productService.findOne(id);
+  async findOne(@Payload() payload: {id: number}) {
+    return await this.productService.findOne(payload.id);
   }
 
   @MessagePattern("updateProduct")
-  update(@Param('id') id: number, @Payload() updateProductDto: UpdateProductDto) {
-    return this.productService.update(id, updateProductDto);
+  async update(@Payload() updateProductDto: UpdateProductDto) {
+    console.log(updateProductDto)
+    return await this.productService.update(updateProductDto);
   }
 
   @MessagePattern("deleteProduct")
-  remove(@Param('id') id: number) {
-    return this.productService.remove(id);
+  async remove(@Payload() payload: {id: number}) {
+    return await this.productService.remove(payload.id);
   }
 }

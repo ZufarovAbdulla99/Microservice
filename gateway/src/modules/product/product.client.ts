@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
 import { ClientProxy, ClientProxyFactory, Transport } from "@nestjs/microservices";
-import { CreateProductDto } from "./dto";
+import { CreateProductDto, UpdateProductDto } from "./dto";
 
 @Injectable()
 export class ProductClient implements OnModuleInit {
@@ -32,7 +32,7 @@ export class ProductClient implements OnModuleInit {
         return this.client.send("getProduct", {id})
     }
 
-    updateProduct(id: number, payload: CreateProductDto){
+    updateProduct(id: number, payload: UpdateProductDto){
         return this.client.send("updateProduct", {id, payload})
     }
 
